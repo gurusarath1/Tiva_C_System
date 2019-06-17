@@ -11,20 +11,17 @@ void delayMs(int n);
 
 int main(void)
 {
-    SYSCTL_RCGC2_R |= 0x00000020;
-    GPIO_mode('F',BIT2|BIT1,OUTPUT);
-    GPIO_mode('F',BIT4,INPUT);
+
+    GPIO_mode('B',BIT3,OUTPUT);
+    GPIO_mode('B',BIT2,INPUT);
     while(1)
     {
-        GPIO_Write('F',BIT2,TOGGLE);
 
-        delayMs(100);
+        if(GPIO_ReadBit('B',BIT2)==LOW)
+        GPIO_Write('B',BIT3,TOGGLE);
 
-        if(GPIO_ReadBit('F',BIT4) == LOW)
-        {
-            GPIO_Write('F',BIT1,TOGGLE);
-        }
 
+           delayMs(100);
     }
 
 	return 0;

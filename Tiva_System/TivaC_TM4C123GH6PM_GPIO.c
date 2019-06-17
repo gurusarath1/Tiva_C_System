@@ -6,6 +6,8 @@ char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION Di
 
     if(PortSelect == 'A') {
 
+        SYSCTL_RCGC2_R |= BIT0; //Run Mode Clock gating control register
+
         if(DirectionSelect == OUTPUT) {
             GPIO_PORTA_DIR_R |= BitSelect;
         }
@@ -19,6 +21,9 @@ char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION Di
     }
 
     if(PortSelect == 'B'){
+
+        SYSCTL_RCGC2_R |= BIT1; //Enable Port B
+
         if(DirectionSelect == OUTPUT) {
             GPIO_PORTB_DIR_R |= BitSelect;
         }
@@ -32,6 +37,9 @@ char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION Di
     }
 
     if(PortSelect == 'C'){
+
+        SYSCTL_RCGC2_R |= BIT2; //Enable Port C
+
         if(DirectionSelect == OUTPUT) {
             GPIO_PORTC_DIR_R |= BitSelect;
         }
@@ -45,19 +53,44 @@ char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION Di
     }
 
     if(PortSelect == 'D'){
+
+        SYSCTL_RCGC2_R |= BIT3; //Enable Port D
+
         if(DirectionSelect == OUTPUT) {
+
+            if(BitSelect == BIT7)
+            {
+                GPIO_PORTD_LOCK_R = GPIO_PORT_UNLOCK; //Unlock Port
+                GPIO_PORTD_CR_R = 0xFF;
+            }
+
             GPIO_PORTD_DIR_R |= BitSelect;
+            GPIO_PORTD_DEN_R |= BitSelect;
+
+            if(BitSelect == BIT7)
+            {
+                GPIO_PORTD_CR_R = 0x00; //Commit
+            }
         }
         else {
+            GPIO_PORTD_LOCK_R = GPIO_PORT_UNLOCK; //Unlock Port
+            GPIO_PORTD_CR_R = 0xFF;
+
             GPIO_PORTD_DIR_R &= ~((uint32_t)BitSelect);
             GPIO_PORTD_PUR_R |= BitSelect;
+            GPIO_PORTD_DEN_R |= BitSelect;
+
+            GPIO_PORTD_CR_R = 0x00; //Commit
         }
 
-        GPIO_PORTD_DEN_R |= BitSelect;
+
         return VALID;
     }
 
     if(PortSelect == 'E'){
+
+        SYSCTL_RCGC2_R |= BIT4; //Enable Port E
+
         if(DirectionSelect == OUTPUT) {
             GPIO_PORTE_DIR_R |= BitSelect;
         }
@@ -71,8 +104,24 @@ char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION Di
     }
 
     if(PortSelect == 'F'){
+
+        SYSCTL_RCGC2_R |= BIT5; //Enable Port F
+
         if(DirectionSelect == OUTPUT) {
+
+            if(BitSelect == BIT0)
+            {
+                GPIO_PORTF_LOCK_R = GPIO_PORT_UNLOCK; //Unlock Port
+                GPIO_PORTF_CR_R = 0xFF;
+            }
+
             GPIO_PORTF_DIR_R |= BitSelect;
+
+            if(BitSelect == BIT0)
+            {
+                GPIO_PORTF_CR_R = 0x00; //Commit
+            }
+
         }
         else {
             GPIO_PORTF_DIR_R &= ~((uint32_t)BitSelect);
@@ -102,7 +151,11 @@ FUNCTION_ERROR_RETURN GPIO_Write(unsigned char PortSelect, BIT_LOCATION BitSelec
     }
 
     if(PortSelect == 'D'){
-        return GPIO_Write_support(&GPIO_PORTD_DATA_R, BitSelect, operation);
+        //GPIO_PORTD_LOCK_R = GPIO_PORT_UNLOCK;
+        //GPIO_PORTD_CR_R = 0xFF;
+        GPIO_Write_support(&GPIO_PORTD_DATA_R, BitSelect, operation);
+        //GPIO_PORTD_CR_R = 0x0;
+        return 1;
     }
 
     if(PortSelect == 'E'){
