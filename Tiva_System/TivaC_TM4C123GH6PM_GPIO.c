@@ -1,4 +1,6 @@
 #include "General_Data.h"
+#include <stdint.h>
+#include "inc/tm4c123gh6pm.h"
 #include "TivaC_TM4C123GH6PM_GPIO.h"
 
 char GPIO_mode(unsigned char PortSelect, BIT_LOCATION BitSelect, IO_DIRECTION DirectionSelect)

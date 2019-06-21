@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include "inc/tm4c123gh6pm.h"
 
 #define GPIO_PORT_UNLOCK 0x4C4F434B
 
