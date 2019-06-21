@@ -11,18 +11,23 @@ void delayMs(int n);
 
 int main(void)
 {
+    int i = 0;
 
-    GPIO_mode('B',BIT3,OUTPUT);
-    GPIO_mode('B',BIT2,INPUT);
-    while(1)
-    {
+    GPIO_mode('F', BIT1, OUTPUT);
+    TIMER_init(0, 'A', DOWN);
+    TIMER_start(0, 'A');
 
-        if(GPIO_ReadBit('B',BIT2)==LOW)
-        GPIO_Write('B',BIT3,TOGGLE);
-
-
-           delayMs(100);
+    while(1){
+        if((TIMER0_RIS_R & 0x1) == 1)
+        {
+            TIMER0_ICR_R = 1;
+            GPIO_Write('F', BIT1, TOGGLE);
+            i++;
+            if(i == 60) break;
+        }
     }
+
+    while(1);
 
 	return 0;
 }

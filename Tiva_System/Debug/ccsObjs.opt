@@ -1,1 +1,1 @@
-"./TivaC_TM4C123GH6PM_GPIO.o" "./main.o" "./tm4c123gh6pm_startup_ccs_gcc.o" -Wl,-T"../tm4c123gh6pm.lds" 
+"./TivaC_TM4C123GH6PM_GPIO.o" "./TivaC_TM4C123GH6PM_TIMERS.o" "./main.o" "./tm4c123gh6pm_startup_ccs_gcc.o" -Wl,-T"../tm4c123gh6pm.lds" 

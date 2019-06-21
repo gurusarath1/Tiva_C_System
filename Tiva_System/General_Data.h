@@ -15,6 +15,13 @@ typedef enum{
 }BOOL_STATE;
 
 typedef enum{
+    UP = 0,
+    DOWN = 1,
+    LEFT = 2,
+    RIGHT = 3
+}DIRECTION;
+
+typedef enum{
     ACTIVE = 1,
     INACTIVE = 0
 }STATUS;
@@ -68,5 +75,5 @@ typedef enum{
     BIT31 =  0x80000000
 }BIT_LOCATION;
 
-
+#define ALL_F 0xFFFFFFFF
 
