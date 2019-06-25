@@ -10,6 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./TivaC_TM4C123GH6PM_EEPROM.o" \
 "./TivaC_TM4C123GH6PM_GPIO.o" \
 "./TivaC_TM4C123GH6PM_TIMERS.o" \
 "./main.o" \
@@ -156,8 +157,8 @@ Tiva_System.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "TivaC_TM4C123GH6PM_GPIO.o" "TivaC_TM4C123GH6PM_TIMERS.o" "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" 
-	-$(RM) "TivaC_TM4C123GH6PM_GPIO.d" "TivaC_TM4C123GH6PM_TIMERS.d" "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" 
+	-$(RM) "TivaC_TM4C123GH6PM_EEPROM.o" "TivaC_TM4C123GH6PM_GPIO.o" "TivaC_TM4C123GH6PM_TIMERS.o" "main.o" "tm4c123gh6pm_startup_ccs_gcc.o" 
+	-$(RM) "TivaC_TM4C123GH6PM_EEPROM.d" "TivaC_TM4C123GH6PM_GPIO.d" "TivaC_TM4C123GH6PM_TIMERS.d" "main.d" "tm4c123gh6pm_startup_ccs_gcc.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
